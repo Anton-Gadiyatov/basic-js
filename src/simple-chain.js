@@ -1,26 +1,36 @@
-const CustomError = require("../extensions/custom-error");
+const CustomError = require('../extensions/custom-error');
 
 const chainMaker = {
+  temporalArr: [],
+  chain: '',
   getLength() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    return this.temporalArr.length;
   },
   addLink(value) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.temporalArr.push(`( ${value} )`);
+    return this;
   },
   removeLink(position) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    if (
+      this.temporalArr[position - 1] === 'undefined' ||
+      Number.isNaN(position - 1)
+    ) {
+      this.temporalArr = [];
+      throw new Error();
+    } else {
+      this.temporalArr.splice(position - 1, 1);
+    }
+    return this;
   },
   reverseChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+    this.temporalArr.reverse();
+    return this;
   },
   finishChain() {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
-  }
+    this.chain = this.temporalArr.join('~~');
+    this.temporalArr = [];
+    return this.chain;
+  },
 };
 
 module.exports = chainMaker;
