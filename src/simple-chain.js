@@ -5,24 +5,34 @@ import { NotImplementedError } from '../extensions/index.js';
  * 
  */
 export default {
+  temporalArr: [],
+  chain: '',
   getLength() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.temporalArr.length;
   },
-  addLink(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  addLink(value) {
+    this.temporalArr.push(`( ${value} )`);
+    return this;
   },
-  removeLink(/* position */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  removeLink(position) {
+    if (
+      this.temporalArr[position - 1] === 'undefined' ||
+      Number.isNaN(position - 1)
+    ) {
+      this.temporalArr = [];
+      throw new Error();
+    } else {
+      this.temporalArr.splice(position - 1, 1);
+    }
+    return this;
   },
   reverseChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    this.temporalArr.reverse();
+    return this;
   },
   finishChain() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    this.chain = this.temporalArr.join('~~');
+    this.temporalArr = [];
+    return this.chain;
   }
 };
